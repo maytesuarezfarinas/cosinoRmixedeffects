@@ -56,9 +56,7 @@ library(cosinoRmixedeffects)
 ### Installation
 
 ```{r install the package}
-## this step will be updated after connect it to Github
-## number of simulations will be changed to 500 after everything else looks okay (knit takes too long)
-devtools::load_all()
+remotes::install_github("maytesuarezfarinas/cosinoRmixedeffects")
 library(cosinoRmixedeffects)
 
 ```
@@ -141,7 +139,7 @@ Step 2. get the estimated mean MESOR, amplitude and acrophase by gender, and use
 This function uses the inverse relationship to obtain EMMs for MESOR, amplitude and acrophase.The model fit object and contrast mean formula are required for this function. The default number of simulations is 500. The more simulations we conduct, the closer distribution/probability we get to the theoretical distribution/probability.The default is to calculate 95% confidence interval, but argument *conflevel* could be specified to obtain other confidence intervals, e.g. conflevel = 0.9 for 90% confidence interval . The type of interval calculated by default is "norm", but other types are also allowed by specifying the argument *conftype*.
 
 ```{r message=FALSE}
-db.means<-get.means.ci.cosinor(f1, contrast.mean.frm="~gender",nsim=100)
+db.means<-get.means.ci.cosinor(f1, contrast.mean.frm="~gender",nsim=500)
 db.means
 
 ## the MEAN is the EMM, with 95% confidence interval lower boundary as "2.5%" and upper boundary as "97.5%" columns. 
@@ -153,7 +151,7 @@ Step 3. get the estimated pairwise contrasts by gender and confidence intervals 
 The model object and contrast formula are required for this function.The default is 95% confidence interval, but argument *conflevel* could be specified to obtain other confidence intervals, e.g. conflevel = 0.9 for 90% confidence interval . The type of interval calculated by default is "norm", but other types are also allowed by specifying the argument *conftype*.
 
 ```{r message=FALSE, fig.show='hide'}
-db.delta<-get.contrasts.ci.cosinor(f1,contrast.frm="~gender",nsim=100)
+db.delta<-get.contrasts.ci.cosinor(f1,contrast.frm="~gender",nsim=500)
 db.delta
 
 ## boot.estimate is the estimated contrasts between groups, with its 95% confidence interval lower boundary as "2.5%" and upper boundary as "97.5%" columns. 
@@ -241,13 +239,13 @@ f2<-fit.cosinor.mixed(y="hrv",x=c("gender","T0toT14"),random="1|participant_id",
 Step 2. get the estimated transformed CONSINOR mean MESOR, amplitude and acrophase by COVID-19 status, adjusted for gender, and use bootstrapping to get confidence intervals for the means
 
 ```{r, message=FALSE}
-db.means<-get.means.ci.cosinor(fit=f2, contrast..mean.frm="~T0toT14", nsim=100)
+db.means<-get.means.ci.cosinor(fit=f2, contrast..mean.frm="~T0toT14", nsim=500)
 db.means
 ```
 
 This is to show EMMs by groups of biological sex, adjusted for COVID-19 status, and estimates changed compared to Model 1 with no covariates adjusted.
 ```{r, message=FALSE}
-db.means2<-get.means.ci.cosinor(fit=f2, contrast.mean.frm="~gender", nsim=100)
+db.means2<-get.means.ci.cosinor(fit=f2, contrast.mean.frm="~gender", nsim=500)
 db.means2
 ```
 
@@ -255,7 +253,7 @@ db.means2
 Step 3. get the estimated pairwise contrasts by COVID-19 status and confidence intervals for MESOR, Amplitude and acrophase  
 
 ```{r, message=FALSE, fig.show='hide'}
-db.delta<-get.contrasts.ci.cosinor(fit=f2,contrast.frm="~T0toT14", nsim=100)
+db.delta<-get.contrasts.ci.cosinor(fit=f2,contrast.frm="~T0toT14", nsim=500)
 db.delta
 ```
 
@@ -337,14 +335,14 @@ Step 2. get the estimated transformed CONSINOR mean MESOR, amplitude and acropha
 To get the estimated means across body mass index (BMI) categories within each sex, the contrast formula "~bmi_baseline_cat|gender" is written in the same syntax as *emmeans*. 
 
 ```{r, message=FALSE}
-db.means<-get.means.ci.cosinor(fit=f3, contrast.mean.frm="~bmi_baseline_cat|gender", nsim=100)
+db.means<-get.means.ci.cosinor(fit=f3, contrast.mean.frm="~bmi_baseline_cat|gender", nsim=500)
 head(db.means)
 ```
 
 Step 3. get the estimated pairwise contrasts and the confidence intervals for MESOR, Amp, Acro for each BMI category
 
 ```{r, message=FALSE, fig.show='hide'}
-db.delta<-get.contrasts.ci.cosinor(fit=f3,contrast.frm="~bmi_baseline_cat|gender", nsim=100)
+db.delta<-get.contrasts.ci.cosinor(fit=f3,contrast.frm="~bmi_baseline_cat|gender", nsim=500)
 head(db.delta)
 ```
 
