@@ -243,7 +243,7 @@ f2<-fit.cosinor.mixed(y="hrv",x=c("gender","T0toT14"),random="1|participant_id",
 Step 2. get the estimated transformed CONSINOR mean MESOR, amplitude and acrophase by COVID-19 status, adjusted for gender, and use bootstrapping to get confidence intervals for the means
 
 ```{r, message=FALSE}
-db.means<-get.means.ci.cosinor(fit=f2, contrast..mean.frm="~T0toT14", nsim=500)
+db.means<-get.means.ci.cosinor(fit=f2, contrast.frm="~T0toT14", nsim=500)
 db.means
 ```
 
