@@ -5,7 +5,7 @@
 #' confidence interval.
 #'
 #' @param fit the object from lmer() function
-#' @param contrast.mean.frm a string formula specifying the names of the predictors over which emmeans are desired.
+#' @param contrast.frm a string formula specifying the names of the predictors over which emmeans are desired.
 #' @param nsim the number of simulations, positive integer; the bootstrap B (or R) for bootMer function.Default is 500.
 #' @param parallel the type of parallel operation to be used (if any) for bootMer function. The default is "multicore".
 #' @param ncpus integer: number of processes to be used in parallel operation: typically one would choose this to be the number of available CPUs.Default is 8.
