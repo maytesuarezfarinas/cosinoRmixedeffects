@@ -13,16 +13,6 @@ library(cosinoRmixedeffects)
 ```
 
 
----
-title: "cosinoRmixedeffects: an R package for mixed-effects cosinor models"
-author: "Ruixue Hou,Lewis E Tomalin, Mayte Suárez-Fariñas"
-date: "02/2021"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{introduction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
