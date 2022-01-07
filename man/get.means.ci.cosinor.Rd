@@ -6,7 +6,7 @@
 \usage{
 get.means.ci.cosinor(
   fit,
-  contrast.mean.frm,
+  contrast.frm,
   nsim = 500,
   parallel = "multicore",
   ncpus = 8,
@@ -18,7 +18,7 @@ get.means.ci.cosinor(
 \arguments{
 \item{fit}{the object from lmer() function}
 
-\item{contrast.mean.frm}{a string formula specifying the names of the predictors over which emmeans are desired.}
+\item{contrast.frm}{a string formula specifying the names of the predictors over which emmeans are desired.}
 
 \item{nsim}{the number of simulations, positive integer; the bootstrap B (or R) for bootMer function.Default is 500.}
 
@@ -44,6 +44,6 @@ confidence interval.
 
 f<-fit.cosinor.mixed(y="hrv", x="gender", random="1|participant_id", data=db.model)
 summary(f)
-get.means.ci.cosinor(fit=f, contrast.mean.frm="~gender")
+get.means.ci.cosinor(fit=f, contrast.frm="~gender")
 
 }
