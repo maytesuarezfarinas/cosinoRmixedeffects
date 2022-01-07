@@ -22,14 +22,14 @@
 #' summary(f)
 #' get.means.ci.cosinor(fit=f, contrast.mean.frm="~gender")
 #'
-get.means.ci.cosinor<-function(fit, contrast.mean.frm, nsim=500, parallel = "multicore", ncpus=8, conftype="norm", conflevel= 0.95, ...){
+get.means.ci.cosinor<-function(fit, contrast.frm, nsim=500, parallel = "multicore", ncpus=8, conftype="norm", conflevel= 0.95, ...){
 
   ## get tarnsformed means of MESOR, amplitude and acrophase
-  ModelCoefs<-just.get.means.cosinor(fit=fit, contrast.frm=contrast.mean.frm)
+  ModelCoefs<-just.get.means.cosinor(fit=fit, contrast.frm=contrast.frm)
 
   ##bootstrap to get the confidence interval
   boot.mean<-bootMer(fit,
-                     FUN = create.boot.FUN.mean(contrast.frm=contrast.mean.frm),
+                     FUN = create.boot.FUN.mean(contrast.frm=contrast.frm),
                      nsim =nsim,
                      parallel = parallel,
                      ncpus=ncpus)
@@ -44,7 +44,7 @@ get.means.ci.cosinor<-function(fit, contrast.mean.frm, nsim=500, parallel = "mul
                    Param=strsplit2(VALUE, "_")[,1],
                    contrast=gsub(" ","",strsplit2(VALUE, "_")[,2]))
   ##"|", "*" will appear when contrast.frm are interactions
-  db.means<-plyr::rename(db.means, c("contrast" = mgsub(c("~","[|]","[*]"),c("","_","_"), contrast.mean.frm)))
+  db.means<-plyr::rename(db.means, c("contrast" = mgsub(c("~","[|]","[*]"),c("","_","_"), contrast.frm)))
   db.means$Param<-factor(db.means$Param,levels=c("MESOR","Amplitude","Acrophase"))
   db.means
 }
