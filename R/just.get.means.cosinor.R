@@ -39,7 +39,7 @@ just.get.means.cosinor<- function(fit, contrast.frm,...) {
   pars.raw.sss<-groups.sss@linfct %*% fixef(mf)
 
   names(pars.raw.mesor)<-paste('MESOR_',groups.names)
-  amp<-apply(pars.raw.rrr,1,function(x){sqrt(sum(x^2))})
+  amp<-apply(cbind(pars.raw.rrr,pars.raw.sss),1,function(x){sqrt(sum(x[1]^2+x[2]^2))})
   names(amp) <- paste0('Amplitude_',groups.names)
 
   acr<-apply(cbind(pars.raw.rrr,pars.raw.sss), 1,
