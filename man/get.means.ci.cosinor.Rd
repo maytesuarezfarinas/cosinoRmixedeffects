@@ -10,7 +10,7 @@ get.means.ci.cosinor(
   nsim = 500,
   parallel = "multicore",
   ncpus = 8,
-  conftype = "norm",
+  conftype = "perc",
   conflevel = 0.95,
   ...
 )
@@ -32,9 +32,6 @@ get.means.ci.cosinor(
 
 \item{...}{additional argument(s) for methods.}
 }
-\value{
-
-}
 \description{
 The function will takes in a fitted merMod object, transform the linear/raw coefficients to COSINOR non-linear/transformed coefficients
 for MESOR, Amplitude and acrophase and estimated the standard error through bootstrapping to provide the
@@ -44,6 +41,6 @@ confidence interval.
 
 f<-fit.cosinor.mixed(y="hrv", x="gender", random="1|participant_id", data=db.model)
 summary(f)
-get.means.ci.cosinor(fit=f, contrast.frm="~gender")
+get.means.ci.cosinor(fit=f, contrast.mean.frm="~gender")
 
 }

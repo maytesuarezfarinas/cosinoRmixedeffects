@@ -13,9 +13,6 @@ create.cosinor.param(time, period, data)
 
 \item{data}{the dataframe with the time and period information}
 }
-\value{
-
-}
 \description{
 Create cosinor parameters using the time variable and the cosinor period
 }

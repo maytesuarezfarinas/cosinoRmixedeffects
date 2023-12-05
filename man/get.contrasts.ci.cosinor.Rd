@@ -32,9 +32,6 @@ get.contrasts.ci.cosinor(
 
 \item{...}{additional argument(s) for methods.}
 }
-\value{
-
-}
 \description{
 The function takes in a fitted merMod object as input and returns the statistics (e.g. standard error) of pair-wise contrasts
 of MESOR, amplitude and acrophase. The output are bootstrapped estimates, 95% confidence intervals and p values for each comtrast

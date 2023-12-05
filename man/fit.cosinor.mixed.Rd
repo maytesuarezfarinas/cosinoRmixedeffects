@@ -26,9 +26,6 @@ fit.cosinor.mixed(
 
 \item{na.action}{how to deal with missing data, default is na.action = na.omit}
 }
-\value{
-
-}
 \description{
 Given an outcome, predictor variable, fit the cosinor mixed model with optional covariate effects
 }

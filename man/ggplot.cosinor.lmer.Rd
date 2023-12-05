@@ -23,9 +23,6 @@
 
 \item{DATA}{a data frame containing the variables named in lmer object}
 }
-\value{
-
-}
 \description{
 Given a lmer model fit, generate a plot of the data with the fitted values.
 }
