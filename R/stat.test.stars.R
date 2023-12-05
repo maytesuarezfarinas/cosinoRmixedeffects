@@ -28,7 +28,7 @@ stat.test.stars <- function (db.delta, db.means, contrast.frm)
     contrast.frm <- mgsub(c("[|]", "[*]"), c("_", "_"), contrast.frm)
     db.temp2 <- add_y_position(db.temp, formula = as.formula(paste0("`97.5 %`",
                                                                     contrast.frm)), data = subset(db.means, Param == L))}))
-  $
+
     stat.test <- mutate(stat.test, contrast = paste0(group1, "_vs_", group2))
 
   stat.test
