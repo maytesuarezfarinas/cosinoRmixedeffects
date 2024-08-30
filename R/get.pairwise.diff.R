@@ -8,7 +8,7 @@
 #'
 #' @examples
 get.pairwise.diff<-function(x){
-  nm<-apply(combn(names(x),2),2,paste0,collapse='_vs_')
+  nm <- apply(combn(rev(names(x)), 2), 2, paste0, collapse = "_vs_")
   out<-apply(combn(x,2), 2, diff)
   names(out)<-nm
   return(out)
