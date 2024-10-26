@@ -83,13 +83,14 @@ ggplot.cosinor.lmer<- function(object=NULL,
                   T_AMP=-(Acrophase*period)/(2*pi))
 
 
-
-  if (missing(x_str) || is.null(x_str)) {
-    ggplot(newdata, aes_string(x = time.var, y = "Yhat"))
+ if (missing(x_str) || is.null(x_str)) {
+    ggplot(newdata, aes(x = !! sym(time.var), y = Yhat))
   }
   else {
-    ggplot(db.plot, aes_string(x = time.var, y = "Yhat", color="GROUP"))
+    ggplot(db.plot, aes(x =  !! sym(time.var), y = Yhat, color=GROUP))
   }
+
+  
 }
 
 
