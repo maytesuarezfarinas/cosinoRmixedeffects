@@ -17,6 +17,3 @@ correct value of acrophase
 \description{
 Given beta (b_rrr) and gamma (b_sss), get the correct value of acrophase.
 }
-\examples{
-
-}

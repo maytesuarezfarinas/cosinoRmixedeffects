@@ -1,3 +1,4 @@
+
 #' Get MESOR(M), Amplitude(A), Acrophase
 #'
 #' Get the estimated marginal means for the specified factors or factor combinations in a linear model,
@@ -48,4 +49,3 @@ just.get.means.cosinor<- function(fit, contrast.frm,...) {
 
   return(c(pars.raw.mesor,amp,acr))
 }
-

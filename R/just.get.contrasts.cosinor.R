@@ -1,3 +1,4 @@
+
 #' Get the pairwise contrasts for MESOR, Amplitude, Acrophase
 #'
 #' Get the estimated marginal means for the specified factors or factor combinations in a linear model,

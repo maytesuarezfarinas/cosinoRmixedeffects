@@ -22,32 +22,43 @@
 #' summary(f)
 #' get.means.ci.cosinor(fit=f, contrast.mean.frm="~gender")
 #'
-get.means.ci.cosinor<-function(fit, contrast.frm, nsim=500, parallel = "multicore", ncpus=8, conftype="norm", conflevel= 0.95, ...){
+
+get.means.ci.cosinor<-function (fit, contrast.frm, nsim = 500, parallel = "multicore", ncpus = 8, conftype = "perc", conflevel = 0.95, ...)
+{
 
   ## get tarnsformed means of MESOR, amplitude and acrophase
-  ModelCoefs<-just.get.means.cosinor(fit=fit, contrast.frm=contrast.frm)
+  ModelCoefs <- just.get.means.cosinor(fit = fit, contrast.frm = contrast.frm)
 
   ##bootstrap to get the confidence interval
-  boot.mean<-bootMer(fit,
-                     FUN = create.boot.FUN.mean(contrast.frm=contrast.frm),
-                     nsim =nsim,
-                     parallel = parallel,
-                     ncpus=ncpus)
+  boot.mean <- bootMer(fit, FUN = create.boot.FUN.mean(contrast.frm = contrast.frm),
+                       nsim = nsim,
+                       parallel = parallel,
+                       ncpus = ncpus)
 
   ##get the results
-  db.means<-cbind.data.frame(MEAN=boot.mean$t0,
-                             confint(boot.mean, type=conftype, level=conflevel))
+  db.means <- cbind.data.frame(MEAN = boot.mean$t0,
+                               confint(boot.mean,
+                                       type = conftype,
+                                       level = conflevel))
 
-  db.means$VALUE<-gsub(" ", "",rownames(db.means))
+  db.means$VALUE <- gsub(" ", "", rownames(db.means))
 
-  db.means<-mutate(db.means,
-                   Param=strsplit2(VALUE, "_")[,1],
-                   contrast=gsub(" ","",strsplit2(VALUE, "_")[,2]))
-  ##"|", "*" will appear when contrast.frm are interactions
-  db.means<-plyr::rename(db.means, c("contrast" = mgsub(c("~","[|]","[*]"),c("","_","_"), contrast.frm)))
-  db.means$Param<-factor(db.means$Param,levels=c("MESOR","Amplitude","Acrophase"))
-  db.means
+  db.means <- mutate(db.means, Param = strsplit2(VALUE, "_")[,1], contrast = gsub(" ", "", strsplit2(VALUE, "_")[,2]))
+
+  db.means <- plyr::rename(db.means, c(contrast = mgsub(c("~", "[|]", "[*]"), c("", "_", "_"), contrast.frm)))
+  db.means$Param <- factor(db.means$Param, levels = c("MESOR","Amplitude", "Acrophase", "PeakTime"))
+
+  w <- which(db.means$Param=='Acrophase')
+  db.means.time<-db.means[w,] %>%
+    mutate(MEAN=fromAcrophaseToTime(MEAN),
+           `2.5 %a`=fromAcrophaseToTime(`97.5 %`),
+           `97.5 %a`=fromAcrophaseToTime(`2.5 %`),
+           VALUE=gsub('Acrophase','PeakTime',VALUE),
+           Param='PeakTime') %>%
+    select(-c(`2.5 %`,`97.5 %`))
+  rownames(db.means.time)<-gsub('Acrophase','PeakTime',rownames(db.means.time))
+  colnames(db.means.time)<-gsub('%a','%',colnames(db.means.time))
+  db.means<-rbind(db.means,db.means.time )
+  return(db.means)
 }
-
-
 

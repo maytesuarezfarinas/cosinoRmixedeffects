@@ -9,9 +9,6 @@ create.boot.FUN.cont(contrast.frm)
 \arguments{
 \item{contrast.frm}{a string formula specifying the names of the predictors over which emmeans are desired.}
 }
-\value{
-
-}
 \description{
 Bootstrap function takes in a fitted merMod object as input and returns the statistics (e.g. standard error) of pair-wise contrasts
 of MESOR, amplitude and acrophase

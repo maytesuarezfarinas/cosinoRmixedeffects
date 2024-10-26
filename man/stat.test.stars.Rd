@@ -4,15 +4,12 @@
 \alias{stat.test.stars}
 \title{Get the stars for statistical test plots}
 \usage{
-stat.test.stars(db.delta, contrast.frm)
+stat.test.stars(db.delta, db.means, contrast.frm)
 }
 \arguments{
 \item{db.delta}{the output from function get.contrasts.ci.cosinor()}
 
 \item{contrast.frm}{a string formula specifying the names of the predictors over which emmeans are desired.}
-}
-\value{
-
 }
 \description{
 Get the stars for statistical test plots

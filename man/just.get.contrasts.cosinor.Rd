@@ -15,9 +15,6 @@ just.get.contrasts.cosinor(fit, contrast.frm, output = "pairwise.diff", ...)
 
 \item{...}{other arguments passed on to methods}
 }
-\value{
-
-}
 \description{
 Get the estimated marginal means for the specified factors or factor combinations in a linear model,
 and transform to non-linear parameters MESOR, amplitude, and acrophase, and get the pairwise contrasts
