@@ -1,3 +1,4 @@
+
 #' Get contrasts and confidence interval for MESOR, Amplitude, Acrophase
 #'
 #' The function takes in a fitted merMod object as input and returns the statistics (e.g. standard error) of pair-wise contrasts
@@ -55,9 +56,3 @@ get.contrasts.ci.cosinor<-function (fit, contrast.frm, nsim = 500,
   
   return(db.delta)
 }
-
-
-
-
-
-
