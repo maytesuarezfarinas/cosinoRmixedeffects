@@ -1,3 +1,4 @@
+
 #' Get MESOR(M), Amplitude(A), Acrophase
 #'
 #' Get the estimated marginal means for the specified factors or factor combinations in a linear model,
@@ -20,32 +21,31 @@
 #'  just.get.means.cosinor(fit=f1.a, contrast.frm='~T0toT14')
 #'
 #'
+just.get.means.cosinor<- function(fit, contrast.frm,...) {
+  #get the fitted contrasts and transform to Amp,Acr
+  contrast.frm<-as.formula(contrast.frm)
+  mf <- fit #object$fit
 
-just.get.means.cosinor <- function (fit, contrast.frm, ...)
-{
-  contrast.frm <- as.formula(contrast.frm)
-  mf <- fit
-  groups.M <- emmeans(mf, contrast.frm, at=list(sss = 0, rrr=0))
-  groups.rrr <- emtrends(mf, contrast.frm, "rrr")
-  groups.sss <- emtrends(mf, contrast.frm, "sss")
-  groups.rrr.db <- as.data.frame(groups.rrr)
-  w <- which(colnames(groups.rrr.db) == "rrr.trend") - 1
-  groups.names <- as.vector(apply(groups.rrr.db, 1, function(x) {
-    paste0(x[1:w], collapse = ",")
-  }))
-  pars.raw.mesor <- groups.M@linfct %*% lme4::fixef(mf)
-  pars.raw.rrr <- groups.rrr@linfct %*% lme4::fixef(mf)
-  pars.raw.sss <- groups.sss@linfct %*% lme4::fixef(mf)
-  names(pars.raw.mesor) <- paste("MESOR_", groups.names)
-  amp <- apply(cbind(pars.raw.rrr, pars.raw.sss), 1, function(x) {
-    sqrt(sum(x^2))
-  })
-  names(amp) <- paste0("Amplitude_", groups.names)
-  acr <- apply(cbind(pars.raw.rrr, pars.raw.sss), 1, function(x) {
-    correct.acrophase.msf(b_rrr = x[1], b_sss = x[2])
-  })
-  names(acr) <- paste0("Acrophase_", groups.names)
-  #peakTime<-fromAcrophaseToTime(acr)
-  #names(peakTime) <- paste0("peakTime_", groups.names)
-  return(c(pars.raw.mesor, amp, acr))
+  groups.M<-emmeans(mf, contrast.frm)
+  groups.rrr<-emtrends(mf, contrast.frm,'rrr')
+  groups.sss<-emtrends(mf, contrast.frm,'sss')
+
+  ## assemble summary matrix
+  groups.rrr.db<-as.data.frame(groups.rrr)
+  w<-which(colnames(groups.rrr.db)=='rrr.trend')-1
+  groups.names<-as.vector(apply(groups.rrr.db,1,function(x){paste0(x[1:w],collapse=',')}))
+
+  pars.raw.mesor<-groups.M@linfct %*% fixef(mf)
+  pars.raw.rrr<-groups.rrr@linfct %*% fixef(mf)
+  pars.raw.sss<-groups.sss@linfct %*% fixef(mf)
+
+  names(pars.raw.mesor)<-paste('MESOR_',groups.names)
+  amp<-apply(cbind(pars.raw.rrr,pars.raw.sss),1,function(x){sqrt(sum(x[1]^2+x[2]^2))})
+  names(amp) <- paste0('Amplitude_',groups.names)
+
+  acr<-apply(cbind(pars.raw.rrr,pars.raw.sss), 1,
+             function(x){correct.acrophase.msf(b_rrr=x[1],b_sss=x[2])})
+  names(acr) <- paste0('Acrophase_',groups.names)
+
+  return(c(pars.raw.mesor,amp,acr))
 }
